@@ -1,0 +1,108 @@
+<apex:page controller="ClaimPropertiesController">
+    <apex:form >
+
+        <apex:pageMessages id="messages"/>
+
+        <h2>Claim Properties - {!salesOfficeName}</h2>
+
+        <apex:outputPanel rendered="{!NOT(ISNULL(currentAgent))}">
+            <p>
+                <strong>Agent:</strong> {!currentAgent.Name}
+            </p>
+            <p>
+                <strong>Sales Office:</strong> {!salesOfficeName}
+            </p>
+            <p>
+                <strong>Default Commission Split:</strong>
+                {!currentAgent.Default_Commission_Split__c}%
+            </p>
+        </apex:outputPanel>
+
+        <apex:outputPanel id="selectionInfo" layout="block">
+            <p>
+                <strong>Selected Properties:</strong>
+                {!selectedCount}
+            </p>
+            <p>
+                <strong>Page:</strong>
+                {!pageNumber} of {!totalPages}
+            </p>
+        </apex:outputPanel>
+
+        <apex:pageBlock title="Available Properties">
+
+            <apex:outputPanel id="propertyTable" layout="block">
+
+                <apex:pageBlockTable value="{!properties}" var="prop">
+
+                    <apex:column headerValue="Select">
+                        <apex:inputCheckbox value="{!selectedPropertyIds[prop.Id]}">
+                            <apex:actionSupport event="onchange"
+                                rerender="selectionInfo"/>
+                        </apex:inputCheckbox>
+                    </apex:column>
+
+                    <apex:column headerValue="Property Street">
+                        <apex:outputText value="{!prop.Name}"/>
+                    </apex:column>
+
+                    <apex:column headerValue="Status">
+                        <apex:outputText value="{!prop.Status__c}"/>
+                    </apex:column>
+
+                    <apex:column headerValue="Sales Price">
+                        <apex:outputField value="{!prop.Sales_Price__c}"/>
+                    </apex:column>
+
+                </apex:pageBlockTable>
+
+                <apex:outputPanel rendered="{!properties.size == 0}"
+                    layout="block">
+                    <p>No unclaimed Open properties are available in your Sales Office.</p>
+                </apex:outputPanel>
+
+            </apex:outputPanel>
+
+            <!-- Pagination and action buttons -->
+
+            <apex:outputPanel id="paginationButtons" layout="block">
+
+                <apex:commandButton value="First"
+                    action="{!firstPage}"
+                    disabled="{!NOT(hasPrevious)}"
+                    rerender="selectionInfo,propertyTable,paginationButtons,messages"/>
+
+                <apex:commandButton value="Previous"
+                    action="{!previousPage}"
+                    disabled="{!NOT(hasPrevious)}"
+                    rerender="selectionInfo,propertyTable,paginationButtons,messages"/>
+
+                <apex:commandButton value="Next"
+                    action="{!nextPage}"
+                    disabled="{!NOT(hasNext)}"
+                    rerender="selectionInfo,propertyTable,paginationButtons,messages"/>
+
+                <apex:commandButton value="Last"
+                    action="{!lastPage}"
+                    disabled="{!NOT(hasNext)}"
+                    rerender="selectionInfo,propertyTable,paginationButtons,messages"/>
+
+                <br/><br/>
+
+                <apex:commandButton value="Claim Properties"
+                    action="{!claimProperties}"
+                    rerender="selectionInfo,propertyTable,paginationButtons,messages"/>
+
+                <apex:commandButton value="Claim and Continue"
+                    action="{!claimAndContinue}"
+                    rerender="selectionInfo,propertyTable,paginationButtons,messages"/>
+
+                <apex:commandButton value="Cancel"
+                    action="{!cancelClaim}"/>
+
+            </apex:outputPanel>
+
+        </apex:pageBlock>
+
+    </apex:form>
+</apex:page>

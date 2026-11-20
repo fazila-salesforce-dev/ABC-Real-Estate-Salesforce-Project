@@ -1,0 +1,120 @@
+<apex:page controller="ApproveCommissionsController"
+           lightningStylesheets="true"
+           showHeader="true"
+           sidebar="false">
+
+    <apex:form id="approvalForm">
+
+        <apex:pageMessages id="messages"/>
+
+        <apex:pageBlock title="Approve Commissions">
+
+            <apex:pageBlockSection columns="1">
+                <apex:outputText value="Sales Region: {!regionName}"/>
+                <apex:outputText value="Page {!pageNumber} of {!totalPages}"/>
+
+                <apex:outputPanel id="selectedCounter">
+                    <apex:outputText value="Selected Properties: {!selectedCount}"/>
+                </apex:outputPanel>
+            </apex:pageBlockSection>
+
+            <apex:outputPanel rendered="{!NOT(ISNULL(message))}">
+                <p><strong>{!message}</strong></p>
+            </apex:outputPanel>
+
+            <apex:outputPanel rendered="{!totalRecords > 0}">
+                <apex:inputCheckbox value="{!selectCurrentPage}">
+                    <apex:actionSupport event="onchange"
+                                        action="{!toggleCurrentPage}"
+                                        rerender="approvalForm"/>
+                </apex:inputCheckbox>
+                <apex:outputText value=" Select All on Current Page"/>
+            </apex:outputPanel>
+
+            <apex:pageBlockTable value="{!pageRows}" var="r"
+                                 rendered="{!totalRecords > 0}">
+
+                <apex:column headerValue="Select">
+                    <apex:inputCheckbox value="{!r.selected}">
+                        <apex:actionSupport event="onchange"
+                                            action="{!updateSelectedCount}"
+                                            rerender="selectedCounter,messages"/>
+                    </apex:inputCheckbox>
+                </apex:column>
+
+                <apex:column headerValue="Property">
+                    <apex:outputField value="{!r.propertyRecord.Name}"/>
+                </apex:column>
+
+                <apex:column headerValue="Sales Office">
+                    <apex:outputText value="{!r.propertyRecord.Sales_Office__r.Name}"/>
+                </apex:column>
+
+                <apex:column headerValue="Agent">
+                    <apex:outputText value="{!r.propertyRecord.Agent__r.Name}"/>
+                </apex:column>
+
+                <apex:column headerValue="Sales Price">
+                    <apex:outputField value="{!r.propertyRecord.Sales_Price__c}"/>
+                </apex:column>
+
+                <apex:column headerValue="Office YTD Sales">
+                    <apex:outputField value="{!r.propertyRecord.Sales_Office__r.Year_to_Date_Sales__c}"/>
+                </apex:column>
+
+                <apex:column headerValue="Commission %">
+    <apex:inputField value="{!r.propertyRecord.Agent_Commission_Percentage__c}"
+        required="true">
+        <apex:actionSupport event="onchange"
+                            action="{!savePageState}"
+                            rerender="selectedCounter,messages"/>
+    </apex:inputField>
+</apex:column>
+
+            </apex:pageBlockTable>
+
+            <apex:outputPanel rendered="{!totalRecords = 0}">
+                No properties are currently pending approval for this region.
+            </apex:outputPanel>
+
+            <apex:pageBlockButtons location="bottom">
+
+                <apex:commandButton value="First"
+                                    action="{!firstPage}"
+                                    rerender="approvalForm"
+                                    rendered="{!hasPrevious}"/>
+
+                <apex:commandButton value="Previous"
+                                    action="{!previousPage}"
+                                    rerender="approvalForm"
+                                    rendered="{!hasPrevious}"/>
+
+                <apex:commandButton value="Next"
+                                    action="{!nextPage}"
+                                    rerender="approvalForm"
+                                    rendered="{!hasNext}"/>
+
+                <apex:commandButton value="Last"
+                                    action="{!lastPage}"
+                                    rerender="approvalForm"
+                                    rendered="{!hasNext}"/>
+
+                <apex:commandButton value="Approve Commissions"
+                                    action="{!approveSelected}"
+                                    rendered="{!totalRecords > 0}"/>
+
+                <apex:commandButton value="Approve and Continue"
+                                    action="{!approveAndContinue}"
+                                    rerender="approvalForm"
+                                    rendered="{!totalRecords > 0}"/>
+
+                <apex:commandButton value="Cancel"
+                                    action="{!cancel}"
+                                    immediate="true"
+                                    rendered="{!regionId != null}"/>
+
+            </apex:pageBlockButtons>
+
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
