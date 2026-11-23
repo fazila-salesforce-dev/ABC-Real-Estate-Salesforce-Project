@@ -1,4 +1,4 @@
-# ABC Real Estate Management System
+﻿# ABC Real Estate Management System
 
 ## Salesforce Developer Portfolio Project
 
@@ -71,15 +71,15 @@ Dedicated Apex test classes are included to validate the application's core busi
 
 ```text
 force-app/
-└── main/
-    └── default/
-        ├── classes/
-        ├── flows/
-        ├── objects/
-        ├── pages/
-        ├── permissionsets/
-        ├── tabs/
-        └── triggers/
+â””â”€â”€ main/
+    â””â”€â”€ default/
+        â”œâ”€â”€ classes/
+        â”œâ”€â”€ flows/
+        â”œâ”€â”€ objects/
+        â”œâ”€â”€ pages/
+        â”œâ”€â”€ permissionsets/
+        â”œâ”€â”€ tabs/
+        â””â”€â”€ triggers/
 ## Author
 
 **Fazila Begam**
@@ -87,3 +87,57 @@ force-app/
 Aspiring Salesforce Developer | Mathematics Postgraduate
 
 GitHub: https://github.com/fazila-salesforce-dev
+
+
+## Project Screenshots
+
+The screenshots below demonstrate key workflows and implementation evidence from the ABC Real Estate Salesforce application.
+
+### 1. Property Management and Claiming
+
+**Claim Properties Page**
+
+![Claim Properties](screenshots/claim-properties-page-available-properties.png)
+
+**Successful Property Claim**
+
+![Successful Claim](screenshots/claim-properties-success-message.png)
+
+**Claim Selection Limit Validation**
+
+![Claim Limit](screenshots/claim-properties-selection-limit-error.png)
+
+**Maximum Five Working Properties Validation**
+
+![Five Property Limit](screenshots/property-creation-five-working-limit-error.png)
+
+### 2. Commission Approval
+
+**Approve Commissions Page**
+
+![Approve Commissions](screenshots/approve-commissions-page.png)
+
+### 3. Apex Trigger and Testing
+
+**Property Trigger Code**
+
+![Property Trigger](screenshots/property-trigger-code.png)
+
+**Apex Test Results - 8 Tests Passed**
+
+![Eight Tests Passed](screenshots/apex-tests-eight-passed.png)
+
+**Apex Test Results - 4 Tests Passed**
+
+![Four Tests Passed](screenshots/apex-tests-four-passed.png)
+
+### 4. Salesforce Configuration
+
+**Regional Manager Permission Set**
+
+![Regional Manager Permission Set](screenshots/regional-manager-permission-set.png)
+
+**Chennai Sales Office**
+
+![Chennai Sales Office](screenshots/chennai-sales-office-record.png)
+
