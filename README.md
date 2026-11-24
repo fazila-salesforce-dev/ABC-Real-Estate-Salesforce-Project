@@ -121,10 +121,6 @@ The screenshots below demonstrate key workflows and implementation evidence from
 
 ### 3. Apex Trigger and Testing
 
-**Property Trigger Code**
-
-![Property Trigger](screenshots/property-trigger-code.png)
-
 **Apex Test Results - 8 Tests Passed**
 
 ![Eight Tests Passed](screenshots/apex-tests-eight-passed.png)
