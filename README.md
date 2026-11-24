@@ -71,15 +71,17 @@ Dedicated Apex test classes are included to validate the application's core busi
 
 ```text
 force-app/
-â””â”€â”€ main/
-    â””â”€â”€ default/
-        â”œâ”€â”€ classes/
-        â”œâ”€â”€ flows/
-        â”œâ”€â”€ objects/
-        â”œâ”€â”€ pages/
-        â”œâ”€â”€ permissionsets/
-        â”œâ”€â”€ tabs/
-        â””â”€â”€ triggers/
+└── main/
+    └── default/
+        ├── classes/
+        ├── flows/
+        ├── objects/
+        ├── pages/
+        ├── permissionsets/
+        ├── tabs/
+        └── triggers/
+```
+
 ## Author
 
 **Fazila Begam**
@@ -140,4 +142,3 @@ The screenshots below demonstrate key workflows and implementation evidence from
 **Chennai Sales Office**
 
 ![Chennai Sales Office](screenshots/chennai-sales-office-record.png)
-
